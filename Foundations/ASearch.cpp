@@ -133,7 +133,7 @@ int main(){
     int init[2]{0, 0};
     int goal[2]{4, 5};
 
-    auto board = ReadBoard("./Foundations/1.board");
+    auto board = ReadBoard("./1.board");
     auto solution = Search(board, init, goal);
     solution[0][0] = State::kStart;
     solution[4][5] = State::kFinish;
