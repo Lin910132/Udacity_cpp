@@ -14,11 +14,11 @@ string CellString(const State& state){
     switch (state)
     {
     case State::kObstacle:
-        return "⛰️  ";
+        return "⛰️ ";
     case State::kPath:
         return "🚗 ";
     case State::kStart:
-        return "🚦  ";
+        return "🚦   ";
     case State::kFinish:
         return "🏁 ";
     default:
@@ -86,8 +86,8 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>>& openList, vector
 }
 
 vector<vector<State>> Search(vector<vector<State>> board, int init[], int goal[]){
-    constexpr int dx[4]{0, 1, 0, -1};
-    constexpr int dy[4]{1, 0, -1, 0};
+    constexpr int dx[4]{1, 0, 0, -1};
+    constexpr int dy[4]{0, 1, -1, 0};
 
     vector<vector<int>> openList;
     int x = init[0];
@@ -130,13 +130,16 @@ vector<vector<State>> Search(vector<vector<State>> board, int init[], int goal[]
 }
 
 int main(){
-    int init[2]{0, 0};
-    int goal[2]{4, 5};
-
     auto board = ReadBoard("./1.board");
+    int init[2]{0, 0};
+    int goal[2]{board.size(), board[0].size()};
+
     auto solution = Search(board, init, goal);
-    solution[0][0] = State::kStart;
-    solution[4][5] = State::kFinish;
-    
-    PrintBoard(solution);
+
+    if (!solution.empty()){
+        solution[init[0]][init[1]] = State::kStart;
+        solution[goal[0]][goal[1]] = State::kFinish;
+        
+        PrintBoard(solution);
+    }
 }
